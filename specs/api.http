@@ -1,0 +1,17 @@
+@DEV = http://localhost:3000/
+
+@domain = {{DEV}}
+@jsonContentType = application/json
+
+### Login username:password
+GET {{domain}}
+Content-Type: {{jsonContentType}}
+
+### Login username:password
+POST {{domain}}auth
+Content-Type: {{jsonContentType}}
+
+{
+  "account": "mockUser",
+  "password": "a12345678"
+}

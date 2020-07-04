@@ -16,3 +16,6 @@ junit.xml
 buck-out/
 \.buckd/
 *.keystore
+
+.env
+.env.local
