@@ -4,7 +4,7 @@ const isEmpty = require('lodash/isEmpty');
 const LocalStrategy = require('passport-local').Strategy;
 const { saltHashPassword } = require('../helpers/utils');
 
-const JWTStrategy   = passportJWT.Strategy;
+const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const MOCK_USER = {
   id: 0,
@@ -12,17 +12,15 @@ const MOCK_USER = {
   password: saltHashPassword('a12345678')
 };
 
-const {AUTH_SECRET} = process.env;
-console.log('AUTH_SECRET', AUTH_SECRET)
+const { AUTH_SECRET } = process.env;
 
 const validateUserAndPassword = (user, password) => {
-  console.log('validateUserAndPassword -> user', user)
-  if(isEmpty(user)) return {validated: false};
+  if (isEmpty(user)) return { validated: false };
 
   const hashPassword = saltHashPassword(password);
-  if(hashPassword !== user.password) return {validated: false};
+  if (hashPassword !== user.password) return { validated: false };
 
-  return {validated: true};
+  return { validated: true };
 }
 
 passport.use(
@@ -32,15 +30,15 @@ passport.use(
       passwordField: 'password'
     },
     async (account, password, done) => {
-    console.log('password', password)
-    console.log('account', account)
+      console.log('password', password)
+      console.log('account', account)
       const user = MOCK_USER;
-      const {validated} = validateUserAndPassword(user, password);
+      const { validated } = validateUserAndPassword(user, password);
 
-      if(!validated) {
+      if (!validated) {
         const message = '使用者不存在或密碼錯誤';
         const notfoundError = new Error(message);
-        return done(notfoundError, null, {message});
+        return done(notfoundError, null, { message });
       }
 
       return done(null, user);
@@ -51,11 +49,11 @@ passport.use(
 
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey   : AUTH_SECRET
+  secretOrKey: AUTH_SECRET
 },
-function (jwtPayload, done) {
-  done(null, jwtPayload, { message: 'Logged In Successfully' });
-}
+  function (jwtPayload, done) {
+    done(null, jwtPayload, { message: 'Logged In Successfully' });
+  }
 ));
 
 //Todo: 新增 session
@@ -67,4 +65,19 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-module.exports.jwtAuthorizationMiddleware = passport.authenticate('jwt', {session: true});
+module.exports.jwtAuthorizationMiddleware = (req, res, next) => {
+  console.log('module.exports.jwtAuthorizationMiddleware -> jwtAuthorizationMiddleware')
+  passport.authenticate('jwt', { session: true }, (err, user, info) => {
+    if (err || !user) {
+      const err = {
+        success: false,
+        data: {
+          message: 'authorization fail',
+        }        
+      };
+
+      return res.status(401).json(err); // send the error response to client
+    }
+    return next();
+  })(req, res, next);
+}

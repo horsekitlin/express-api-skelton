@@ -3,9 +3,14 @@
 @domain = {{DEV}}
 @jsonContentType = application/json
 
-### Login username:password
+### public route
 GET {{domain}}
 Content-Type: {{jsonContentType}}
+
+### private route
+GET {{domain}}home
+Content-Type: {{jsonContentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiYWNjb3VudCI6Im1vY2tVc2VyIiwiaWF0IjoxNTkzODU3MjE0fQ.-vnInSEn_p6F_x1IwJV_ufHCrJWwp05yPZlkAzNy_GQ
 
 ### Login username:password
 POST {{domain}}auth

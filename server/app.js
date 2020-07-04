@@ -10,7 +10,9 @@ dotenv.config();
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/authRouter');
-const {jwtAuthorizationMiddleware} = require("./helpers/passportManager")
+const homeRouter = require('./routes/homeRouter');
+
+const { jwtAuthorizationMiddleware } = require("./helpers/passportManager")
 
 const app = express();
 
@@ -27,20 +29,21 @@ app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/home', jwtAuthorizationMiddleware, homeRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500).json({message: err.message || 'some error message'});
+  res.status(err.status || 500).json({ message: err.message || 'some error message' });
 });
 
 module.exports = app;
