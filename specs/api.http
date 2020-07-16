@@ -1,4 +1,4 @@
-@DEV = http://localhost:3000/
+@DEV = http://localhost:8000/
 
 @domain = {{DEV}}
 @jsonContentType = application/json

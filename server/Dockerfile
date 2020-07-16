@@ -1,10 +1,15 @@
-FROM node:10.21
+FROM node:8-slim
 
-COPY . /workspace
-WORKDIR /workspace
-RUN npm install
-CMD ls -al
+LABEL maintainer="Jonathan Gros-Dubois"
+LABEL version="14.3.2"
+LABEL description="Docker file for SocketCluster with support for clustering."
 
-EXPOSE 3000
+RUN mkdir -p /usr/src/
+WORKDIR /usr/src/
+COPY . /usr/src/
 
-CMD npm start
+RUN npm install .
+
+EXPOSE 8000
+
+CMD ["npm", "run", "start:docker"]
