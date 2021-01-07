@@ -1,25 +1,19 @@
-# Express docker compose example
+# skelton
 
-## Create a Cluster
-
-[tutorial][(git clone https://github.com/SocketCluster/scc-state)](https://github.com/SocketCluster/socketcluster/blob/master/scc-guide.md)
-
-This project is a frontend-facing SocketCluster
-
-## Start
+## Initial Project
 
 ```
-docker-compose up -d
+  $ ./lastest/init_project.sh $ProjectName
 ```
-
-## Refresh
-
-```
-docker-compose up -d --build
-```
-
-## Stop
+## Setup
 
 ```
-docker-compose down
+  $ ./lastest/add_packages.sh && ./lastest/setup.sh
+```
+
+create .env
+```
+PORT=8000
+AUTH_SECRET=djsvkasklfkadshfkjashdhfas
+SALT_SECRET=djfljskfjlsadjflalks
 ```
