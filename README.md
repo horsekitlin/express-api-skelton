@@ -17,3 +17,9 @@ PORT=8000
 AUTH_SECRET=djsvkasklfkadshfkjashdhfas
 SALT_SECRET=djfljskfjlsadjflalks
 ```
+
+#### Remove
+
+```
+  $ rm -rf ./template ./lastest
+```
