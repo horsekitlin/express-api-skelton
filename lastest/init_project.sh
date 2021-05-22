@@ -3,6 +3,13 @@
 PROJ_NAME=$1
 npx socketcluster create $PROJ_NAME
 cd $PROJ_NAME
-mv ./* ./.* ..
+rm -rf node_modules
+cp -a ./* ./.* ..
 cd ..
-rmdir $PROJ_NAME
+rm -rf $PROJ_NAME
+
+echo "setup project..."
+./lastest/setup.sh
+
+echo "add packages..."
+./lastest/add_packages.sh
