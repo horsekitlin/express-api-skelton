@@ -19,3 +19,6 @@ rm -rf ./lastest
 
 echo "remove template"
 rm -rf ./template
+
+echo "remove public"
+rm -rf ./public
