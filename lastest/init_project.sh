@@ -3,6 +3,9 @@
 PROJ_NAME=$1
 npx socketcluster create $PROJ_NAME
 cd $PROJ_NAME
-mv ./* ./.* ..
+rm -rf node_modules package-lock.json
+cp -a ./* ./.* ..
 cd ..
-rmdir $PROJ_NAME
+rm -rf $PROJ_NAME
+
+yarn install
