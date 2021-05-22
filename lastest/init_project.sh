@@ -13,3 +13,9 @@ echo "setup project..."
 
 echo "add packages..."
 ./lastest/add_packages.sh
+
+echo "remove lastest"
+rm -rf ./lastest
+
+echo "remove template"
+rm -rf ./template
