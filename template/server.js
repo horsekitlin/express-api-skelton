@@ -2,7 +2,6 @@ const http = require("http");
 const eetase = require("eetase");
 const socketClusterServer = require("socketcluster-server");
 const express = require("express");
-const serveStatic = require("serve-static");
 const path = require("path");
 const morgan = require("morgan");
 const uuid = require("uuid");
@@ -47,6 +46,8 @@ if (process.env.SOCKETCLUSTER_OPTIONS) {
 const cors = require("cors");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
+const swaggerUi = require("swagger-ui-express");
+const { specs } = require('./constants/swaggerOptions');
 const { jwtAuthorizationMiddleware } = require("./helpers/passportManager");
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/authRouter");
@@ -77,6 +78,13 @@ expressApp.use('/home', jwtAuthorizationMiddleware, homeRouter);
 expressApp.get("/health-check", (req, res) => {
   res.status(200).send("OK");
 });
+
+// Swagger UI Route
+expressApp.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs)
+);
 
 // HTTP request handling loop.
 (async () => {
