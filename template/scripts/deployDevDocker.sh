@@ -18,7 +18,7 @@ PACKAGE_NAME=$(cat package.json \
 
 VERSION_TEXT=$(echo $PACKAGE_VERSION | sed -e 's/^[[:space:]]*//')
 
-CONTAINER_ID=$(docker ps | grep '0.0.0.0:$PORT' | awk '{ print $1 }')
+CONTAINER_ID=$(docker ps | grep $PORT | awk '{ print $1 }')
 
 if [ $CONTAINER_ID != "" ]
 then
@@ -27,12 +27,12 @@ then
   docker rm $CONTAINER_ID
 fi
 
-IMAGE_ID=$(docker image ls | grep '$PACKAGE_NAME' | awk '{ print $3 }')
+IMAGE_ID=$(docker image ls | grep $PACKAGE_NAME | awk '{ print $3 }')
 
 if [ $IMAGE_ID != "" ]
 then
   echo "remove image"
-  docker image rm $IMAGE_ID
+  docker image rm $IMAGE_ID --force
 fi
 
 docker run -d -p $SOCKETCLUSTER_PORT:$PORT $DOCKER_REGISTRY:$VERSION_TEXT
