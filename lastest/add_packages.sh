@@ -11,4 +11,4 @@ echo "Add dev packages..."
 yarn add -D supertest
 
 echo "Add packages..."
-yarn add passport passport-jwt passport-local cors cookie-parser lodash swagger-ui-express
+yarn add passport passport-jwt passport-local cors cookie-parser lodash swagger-ui-express date-fns
