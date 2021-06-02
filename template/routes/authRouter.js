@@ -10,11 +10,9 @@ const { AUTH_SECRET } = process.env;
 
 router.post('/', (req, res) => {
   passport.authenticate('local', { session: true }, (error, user) => {
-    console.log('user', user)
     if (error) return responseErrWithMsg(res, error.message);
 
     const signInfo = pick(user, ['id', 'account']);
-    console.log('signInfo', signInfo)
     const token = jwt.sign(signInfo, AUTH_SECRET);
 
     return responseOk(res, { success: true, data: { token } });

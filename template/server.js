@@ -76,10 +76,12 @@ expressApp.use('/home', jwtAuthorizationMiddleware, homeRouter);
 
 // Add GET /health-check express route
 expressApp.get("/health-check", (req, res) => {
-  res.status(200).send("OK");
+  res.json({
+    success: true,
+    data: { status: 'WORKING' }
+  });
 });
 
-// Swagger UI Route
 expressApp.use(
   "/api-docs",
   swaggerUi.serve,
