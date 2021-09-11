@@ -3,14 +3,10 @@ const passportJWT = require("passport-jwt");
 const isEmpty = require('lodash/isEmpty');
 const LocalStrategy = require('passport-local').Strategy;
 const { saltHashPassword } = require('./utils');
+const { getUserWithPasswordBy } = require('../services/userServices');
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
-const MOCK_USER = {
-  id: 0,
-  account: 'mockUser',
-  password: saltHashPassword('a12345678')
-};
 
 const { AUTH_SECRET } = process.env;
 
@@ -18,6 +14,7 @@ const validateUserAndPassword = (user, password) => {
   if (isEmpty(user)) return { validated: false };
 
   const hashPassword = saltHashPassword(password);
+  console.log("🚀 ~ file: passportManager.js ~ line 17 ~ validateUserAndPassword ~ hashPassword", hashPassword)
   if (hashPassword !== user.password) return { validated: false };
 
   return { validated: true };
@@ -26,13 +23,13 @@ const validateUserAndPassword = (user, password) => {
 passport.use(
   new LocalStrategy(
     {
-      usernameField: 'account',
+      usernameField: 'phone',
       passwordField: 'password'
     },
-    async (account, password, done) => {
-      console.log('password', password)
-      console.log('account', account)
-      const user = MOCK_USER;
+    async (phone, password, done) => {
+      console.log("🚀 ~ file: passportManager.js ~ line 33 ~ phone", phone)
+      const user = await getUserWithPasswordBy(phone);
+      console.log("🚀 ~ file: passportManager.js ~ line 31 ~ user", user)
       const { validated } = validateUserAndPassword(user, password);
 
       if (!validated) {
@@ -40,7 +37,7 @@ passport.use(
         const notfoundError = new Error(message);
         return done(notfoundError, null, { message });
       }
-
+      console.log("🚀 ~ file: passportManager.js ~ line 68 ~ user", user)
       return done(null, user);
     }
   )
@@ -66,8 +63,9 @@ passport.deserializeUser((user, done) => {
 });
 
 module.exports.jwtAuthorizationMiddleware = (req, res, next) => {
-  console.log('module.exports.jwtAuthorizationMiddleware -> jwtAuthorizationMiddleware')
   passport.authenticate('jwt', { session: true }, (err, user, info) => {
+    console.log("🚀 ~ file: passportManager.js ~ line 68 ~ passport.authenticate ~ info", info)
+    console.log("🚀 ~ file: passportManager.js ~ line 68 ~ passport.authenticate ~ user", user)
     if (err || !user) {
       const err = {
         success: false,
@@ -78,6 +76,6 @@ module.exports.jwtAuthorizationMiddleware = (req, res, next) => {
 
       return res.status(401).json(err); // send the error response to client
     }
-    return next();
+    return next(null, user);
   })(req, res, next);
 }

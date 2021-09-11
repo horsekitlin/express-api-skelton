@@ -1,4 +1,3 @@
-const baseMigration = require("../config/baseMigration");
 const { saltHashPassword } = require("../../helpers/utils");
 
 module.exports = (sequelize, DataTypes) => {

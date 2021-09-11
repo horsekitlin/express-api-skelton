@@ -8,14 +8,14 @@ module.exports = {
   },
   test: {
     username: "root",
-    password: null,
+    password: "pass",
     database: "express_demo_test",
     host: "127.0.0.1",
     dialect: "postgres",
   },
   production: {
     username: "root",
-    password: null,
+    password: "pass",
     database: "express_demo_production",
     host: "127.0.0.1",
     dialect: "postgres",

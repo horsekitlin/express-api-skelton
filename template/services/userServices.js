@@ -26,31 +26,8 @@ module.exports.updateUserByUserId = async (userId, query) => {
   return user;
 };
 
-module.exports.updateUserNotificationToken = async (
-  userId,
-  notificationToken
-) => {
-  const userResult = await database.User.findOne({
-    attributes: ["id", "notificationToken"],
-    where: {
-      id: userId,
-    },
-  });
-
-  userResult.notificationToken = notificationToken;
-  await userResult.save();
-};
-
 module.exports.getUserWithPasswordBy = async (phone) => {
   const userResult = await database.User.findOne({
-    // attributes: [
-    //   "id",
-    //   "phone",
-    //   "email",
-    //   "name",
-    //   "createdAt",
-    //   "password",
-    // ],
     where: {
       phone,
     },
