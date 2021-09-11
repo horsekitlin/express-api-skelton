@@ -2,7 +2,8 @@ const http = require("http");
 const eetase = require("eetase");
 const socketClusterServer = require("socketcluster-server");
 const express = require("express");
-const path = require("path");
+const swaggerUi = require("swagger-ui-express");
+const { specs } = require('./constants/swaggerOptions');
 const morgan = require("morgan");
 const uuid = require("uuid");
 const sccBrokerClient = require("scc-broker-client");
@@ -43,48 +44,10 @@ if (process.env.SOCKETCLUSTER_OPTIONS) {
   Object.assign(agOptions, envOptions);
 }
 
-const cors = require("cors");
-const passport = require("passport");
-const cookieParser = require("cookie-parser");
-const swaggerUi = require("swagger-ui-express");
-const { specs } = require('./constants/swaggerOptions');
-const { jwtAuthorizationMiddleware } = require("./helpers/passportManager");
-const indexRouter = require("./routes/index");
-const authRouter = require("./routes/authRouter");
-const homeRouter = require("./routes/homeRouter");
-
 let httpServer = eetase(http.createServer());
 let agServer = socketClusterServer.attach(httpServer, agOptions);
 
-let expressApp = express();
-if (ENVIRONMENT === "dev") {
-  // Log every HTTP request. See https://github.com/expressjs/morgan for other
-  // available formats.
-  expressApp.use(morgan("dev"));
-}
-
-expressApp.use(cors());
-expressApp.use(express.json());
-expressApp.use(express.urlencoded({ extended: false }));
-expressApp.use(cookieParser());
-
-expressApp.use(passport.initialize());
-
-expressApp.use('/', indexRouter);
-expressApp.use('/auth', authRouter);
-expressApp.use('/home', jwtAuthorizationMiddleware, homeRouter);
-
-// Add GET /health-check express route
-expressApp.get("/health-check", (req, res) => {
-  res.status(200).send("OK");
-});
-
-// Swagger UI Route
-expressApp.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(specs)
-);
+const expressApp = require('./helpers/expressAppHelper');
 
 // HTTP request handling loop.
 (async () => {
