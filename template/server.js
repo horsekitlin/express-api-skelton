@@ -1,10 +1,6 @@
 const http = require("http");
 const eetase = require("eetase");
 const socketClusterServer = require("socketcluster-server");
-const express = require("express");
-const swaggerUi = require("swagger-ui-express");
-const { specs } = require('./constants/swaggerOptions');
-const morgan = require("morgan");
 const uuid = require("uuid");
 const sccBrokerClient = require("scc-broker-client");
 const dotenv = require("dotenv");
