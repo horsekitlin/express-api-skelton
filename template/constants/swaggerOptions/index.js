@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const {PROT, NODE_ENV} = process.env;
+const {PORT, NODE_ENV} = process.env;
 
 const paths = require('./paths');
 const definitions = require('./definitions');
