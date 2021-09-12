@@ -25,7 +25,7 @@ const loginRequestSchema = yup.object({
   password: yup.string().required('電話或密碼不可為空'),
 });
 
-router.post("/", (req, res) => {
+router.post("/", (req, res) => {.js ~ line 30 ~ router.post ~ req.body", req.body)
   passport.authenticate("local", { session: false }, async (error, user) => {
     try {
       if (error) throw error;
