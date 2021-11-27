@@ -6,9 +6,10 @@ const cookieParser = require("cookie-parser");
 const swaggerUi = require("swagger-ui-express");
 const { specs } = require('../constants/swaggerOptions');
 const { jwtAuthorizationMiddleware } = require("../helpers/passportManager");
-const indexRouter = require("../routes/index");
-const authRouter = require("../routes/authRouter");
-const homeRouter = require("../routes/homeRouter");
+const indexRouter = require("../controller/index");
+const authRouter = require("../controller/authRouter");
+const homeRouter = require("../controller/homeRouter");
+const userRouter = require("../controller/userRouter");
 
 const ENVIRONMENT = process.env.ENV || "dev";
 
@@ -28,6 +29,7 @@ expressApp.use(passport.initialize());
 
 expressApp.use('/', indexRouter);
 expressApp.use('/auth', authRouter);
+expressApp.use('/users', userRouter);
 expressApp.use('/home', jwtAuthorizationMiddleware, homeRouter);
 
 // Add GET /health-check express route

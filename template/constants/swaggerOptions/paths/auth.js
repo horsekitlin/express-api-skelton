@@ -8,13 +8,14 @@ module.exports = {
       parameters: [
         {
           in: "body",
+          name: "data",
           type: "object",
           schema: {
             type: "object",
             properties: {
-              account: {
+              phone: {
                 type: "string",
-                default: "mockUser"
+                default: "0987654321"
               },
               password: {
                 type: "string",

@@ -1,5 +1,18 @@
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const {PORT, NODE_ENV} = process.env;
+
 const paths = require('./paths');
 const definitions = require('./definitions');
+
+const getHostURL = () => {
+  switch(NODE_ENV) {
+    default:
+      return `localhost:${PORT}`;
+  }
+};
 
 const options = {
   swagger: "2.0",
@@ -12,7 +25,7 @@ const options = {
       url: "https://opensource.org/licenses/MIT",
     },
   },
-  host: "localhost:8888",
+  host: getHostURL(),
   basePath: "/",
   tags: [
     {

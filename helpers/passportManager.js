@@ -64,7 +64,7 @@ module.exports.jwtAuthorizationMiddleware = (req, res, next) => {
       const err = {
         success: false,
         data: {
-          message: info.message,
+          message: 'authorization fail',
         }        
       };
 
