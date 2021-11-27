@@ -30,7 +30,7 @@ expressApp.use(passport.initialize());
 expressApp.use('/', indexRouter);
 expressApp.use('/auth', authRouter);
 expressApp.use('/users', userRouter);
-expressApp.use('/home', jwtAuthorizationMiddleware, homeRouter);
+expressApp.use('/home', passport.authenticate('jwt', { session: false }), homeRouter);
 
 // Add GET /health-check express route
 expressApp.get("/health-check", (req, res) => {

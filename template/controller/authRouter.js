@@ -27,6 +27,7 @@ const loginRequestSchema = yup.object({
 
 router.post("/", (req, res) => {
   passport.authenticate("local", { session: false }, async (error, user) => {
+    console.log("🚀 ~ file: authRouter.js ~ line 30 ~ passport.authenticate ~ user", user)
     try {
       if (error) throw error;
       // const expireIn = add(new Date(), { days: 1 }).getTime();
