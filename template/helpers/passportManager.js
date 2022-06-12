@@ -26,10 +26,7 @@ passport.use(
       passwordField: 'password'
     },
     async (phone, password, done) => {
-      console.log("🚀 ~ file: passportManager.js ~ line 29 ~ password", password)
-      console.log("🚀 ~ file: passportManager.js ~ line 29 ~ phone", phone)
       const user = await getUserWithPasswordBy(phone);
-      console.log("🚀 ~ file: passportManager.js ~ line 30 ~ user", user)
       const { validated } = validateUserAndPassword(user, password);
 
       if (!validated) {
