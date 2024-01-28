@@ -1,5 +1,7 @@
 # skelton
 
+[swagger doc](http://localhost:8000/api-docs)
+
 ## Initial Project
 
 ```
