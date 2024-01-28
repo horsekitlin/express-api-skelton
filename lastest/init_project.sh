@@ -3,7 +3,15 @@
 PROJ_NAME=$1
 npx socketcluster create $PROJ_NAME
 cd $PROJ_NAME
+
+echo "remove node_modules and package-lock.json"
+
 rm -rf node_modules
+rm -f package-lock.json
+
+echo "update package.json type to commonjs"
+npm pkg set 'type'='commonjs'
+
 cp -a ./* ./.* ..
 cd ..
 rm -rf $PROJ_NAME
