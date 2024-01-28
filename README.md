@@ -7,21 +7,18 @@
 ```
 ## Setup
 
-```
-  $ ./lastest/add_packages.sh && ./lastest/setup.sh
-```
-
 create .env
-```
-PORT=8000
-AUTH_SECRET=djsvkasklfkadshfkjashdhfas
-SALT_SECRET=djfljskfjlsadjflalks
-```
-
-#### Remove
 
 ```
-  $ rm -rf ./template ./lastest
+SOCKETCLUSTER_PORT=8000
+AUTH_SECRET=test123
+SALT_SECRET=test456
+DB_USERNAME= //postgres username
+DB_DATABASE= //postgres database name
+DB_PASSWORD= //// postgres password 
+DB_PORT=5432
+DB_HOST= //postgres ip
+DB_DIALECT=postgres
 ```
 
 ### package.json
@@ -29,14 +26,6 @@ SALT_SECRET=djfljskfjlsadjflalks
 ```
 {
   ...
-  "scripts": {
-    "start": "node server.js",
-    "start:watch": "./node_modules/nodemon/bin/nodemon.js server.js",
-    "start:docker": "./node_modules/nodemon/bin/nodemon.js /usr/src/app/server.js",
-    "test": "jest",
-    "test:watch": "jest --watch test --color",
-    "test:CI": "CI=true jest test --color --reporters=jest-junit --forceExit --coverage --coverageDirectory=output/coverage/jest"
-  },
   "jest": {
     "testURL": "http://localhost/",
     "collectCoverageFrom": [

@@ -11,13 +11,13 @@ const homeRouter = require("../controllers/homeRouter");
 const userRouter = require("../controllers/userRouter");
 const packageJson = require('../package.json');
 
-const { NODE_ENV, APP_DOMAIN } = process.env;
+const { NODE_ENV = "development", APP_DOMAIN } = process.env;
 
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Trip-backend-api',
-      description: 'Trip backend api service.',
+      title: 'Demo-backend-api',
+      description: 'Demo backend api service.',
       version: `${packageJson.version} - ${NODE_ENV}`,
     },
     host: APP_DOMAIN,

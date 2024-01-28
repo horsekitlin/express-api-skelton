@@ -12,6 +12,16 @@ rm -f package-lock.json
 echo "update package.json type to commonjs"
 npm pkg set 'type'='commonjs'
 
+echo "setup scripts in package.json"
+npm pkg set 'scripts.start:watch'='./node_modules/nodemon/bin/nodemon.js server.js'
+
+npm pkg set 'scripts.migrate:db'='cd database && npx sequelize-cli db:migrate && cd ..'
+npm pkg set 'scripts.migrate:db:drop'='cd database && npx sequelize-cli db:migrate:undo:all && cd ..'
+npm pkg set 'scripts.seed:db'='cd database && npx sequelize-cli db:seed:all && cd ..'
+
+npm pkg set 'scripts.test:watch'='jest --watch test --color'
+npm pkg set 'scripts.test:CI'='CI=true jest test --color --reporters=jest-junit --forceExit --coverage --coverageDirectory=output/coverage/jest'
+
 cp -a ./* ./.* ..
 cd ..
 rm -rf $PROJ_NAME
