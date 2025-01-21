@@ -1,11 +1,15 @@
 #!/bin/bash
 
 PROJ_NAME=$1
-npx express-generator-typescript $PROJ_NAME
-
+mkdir $PROJ_NAME
 cd $PROJ_NAME
-rm -rf ./config ./view
+npx yarn init -y
+
+sh ../lastest/add_packages.sh
 
 mv ./* ./.* ..
+
 cd ..
 rmdir $PROJ_NAME
+
+sh ./lastest/setup.sh
