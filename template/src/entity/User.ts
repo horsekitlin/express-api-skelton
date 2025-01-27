@@ -1,8 +1,7 @@
 import {Entity, Column, BeforeInsert, BeforeUpdate} from 'typeorm';
 import {BaseEntity} from './BaseEntity';
 import * as crypto from 'crypto';
-
-const {SALT_SECRET = 'default-salt-secret'} = process.env;
+import nacosManager from '../helpers/nacosManager';
 
 export const sha512 = function (password: string, salt: string) {
     const hash = crypto.createHmac(
@@ -18,7 +17,8 @@ export const sha512 = function (password: string, salt: string) {
   };
 
 export const saltHashPassword = (userpassword: string) => {
-    const passwordData = sha512(userpassword, SALT_SECRET as string);
+  const config = nacosManager.getConfig();
+    const passwordData = sha512(userpassword, config.SALT_SECRET as string);
     return passwordData.passwordHash;
   };
 

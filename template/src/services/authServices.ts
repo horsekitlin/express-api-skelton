@@ -1,7 +1,7 @@
 import {Repository} from 'typeorm';
 import jwt from 'jsonwebtoken';
 import {saltHashPassword, User} from '../entity/User';
-import {AppDataSource} from '../data-source';
+import DatabaseManager from '../data-source';
 import { ILoginUserResponse } from '../interfaces/userInterface';
 
 const {
@@ -13,7 +13,7 @@ export class AuthService {
   private userRepository: Repository<User>;
 
   constructor() {
-    this.userRepository = AppDataSource.getRepository(User);
+    this.userRepository = DatabaseManager.getDataSource().getRepository(User);
   }
 
   async validateUser(phone: string, password: string): Promise<ILoginUserResponse | null> {

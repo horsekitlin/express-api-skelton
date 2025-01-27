@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Add packages..."
-yarn add crypto dotenv-flow express helmet morgan passport passport-jwt passport-local pg reflect-metadata swagger-ui-express tsoa typeorm
+yarn add crypto dotenv-flow express helmet morgan passport passport-jwt passport-local pg reflect-metadata swagger-ui-express tsoa typeorm nacos
 
 echo "Add Develop Dependencies"
 yarn add -D @types/express @types/jest @types/morgan @types/node @types/passport @types/passport-jwt @types/passport-local @types/supertest @types/swagger-ui-express concurrently jest nodemon supertest ts-jest ts-node typescript
