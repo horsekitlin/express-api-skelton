@@ -13,3 +13,5 @@ cd ..
 rmdir $PROJ_NAME
 
 sh ./lastest/setup.sh
+
+rm -rf lastest template .git
