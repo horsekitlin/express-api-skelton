@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "Add packages..."
-yarn add crypto dotenv-flow express helmet morgan passport passport-jwt passport-local pg reflect-metadata swagger-ui-express tsoa typeorm nacos
+yarn add crypto dotenv-flow express helmet morgan passport passport-jwt passport-local pg reflect-metadata swagger-ui-express tsoa typeorm nacos axios public-ip
 
 echo "Add Develop Dependencies"
-yarn add -D @types/express @types/jest @types/morgan @types/node @types/passport @types/passport-jwt @types/passport-local @types/supertest @types/swagger-ui-express concurrently jest nodemon supertest ts-jest ts-node typescript
+yarn add -D @types/express @types/jest @types/morgan @types/node @types/passport @types/passport-jwt @types/passport-local @types/supertest @types/swagger-ui-express concurrently jest nodemon supertest ts-jest ts-node typescript @types/public-ip
 
 echo "Set package.json scripts"
 npm pkg set scripts.dev="yarn build && concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\""
